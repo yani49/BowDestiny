@@ -21,6 +21,14 @@ public class UpgradeManager : MonoBehaviour
 
     public void RandomReward()
     {
+        if(m_upgradeUIToogleGroup.transform.childCount >1)
+        {
+            for (int opa3 = 1; opa3 < m_upgradeUIToogleGroup.transform.childCount; opa3++)
+            {
+                Destroy(m_upgradeUIToogleGroup.gameObject.transform.GetChild(opa3).gameObject);
+                print(m_upgradeUIToogleGroup.gameObject.transform.GetChild(opa3).gameObject.name);
+            }
+        }
         for (int opa2 = 0; opa2 < numberofUpgrade; opa2++)
         {
             GameObject objecttemplate = Instantiate(m_UpgradeToggleTemplate);
@@ -33,16 +41,10 @@ public class UpgradeManager : MonoBehaviour
             print("Veliksot seznama orozji je" + m_weaponControlStats.weaponlvl.Length);
 
             objecttemplate.transform.GetComponent<Upgrade_Toggle>().WeaponToggleOrganizer(w_ChoosedWeapon);
-
-
-            //poglej katera orozja se niso lvl 5
-            //pokaži da ga upgradaš iz lvl neki na lvl neki
-            //down the line naj se grafično zamenja
         }
     }
     public void GetReward()
     {
-
         AllUpgradeToggles = FindObjectsOfType<Upgrade_Toggle>();
         Debug.LogError("Hellaaaa");
         for(int indexWeaponUpgrade = 0; indexWeaponUpgrade<AllUpgradeToggles.Length;indexWeaponUpgrade++)

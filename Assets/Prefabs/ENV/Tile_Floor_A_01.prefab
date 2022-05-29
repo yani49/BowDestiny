@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 7736674974288226564}
   m_Layer: 6
   m_Name: Tile_Floor_A_01
-  m_TagString: Untagged
+  m_TagString: Env
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -266,6 +266,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8182437151766090974, guid: a5e83095943a4c34282085a904ff196c, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 8846771231811849828, guid: a5e83095943a4c34282085a904ff196c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -336,6 +340,10 @@ PrefabInstance:
     - target: {fileID: 8182437151766090974, guid: a5e83095943a4c34282085a904ff196c, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8182437151766090974, guid: a5e83095943a4c34282085a904ff196c, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8846771231811849828, guid: a5e83095943a4c34282085a904ff196c, type: 3}
       propertyPath: m_RootOrder
@@ -408,6 +416,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8182437151766090974, guid: a5e83095943a4c34282085a904ff196c, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 8846771231811849828, guid: a5e83095943a4c34282085a904ff196c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -478,6 +490,10 @@ PrefabInstance:
     - target: {fileID: 8182437151766090974, guid: a5e83095943a4c34282085a904ff196c, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8182437151766090974, guid: a5e83095943a4c34282085a904ff196c, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8846771231811849828, guid: a5e83095943a4c34282085a904ff196c, type: 3}
       propertyPath: m_RootOrder

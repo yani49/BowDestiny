@@ -226,6 +226,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4172966587488136466, guid: db77195202e368b4b90652be66681bba, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3afbc9b0f8f766d4e9bdefa249dd07ac, type: 2}
+    - target: {fileID: 842545199690814185, guid: db77195202e368b4b90652be66681bba, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd7a55305668f5c4198bb41d40d784ca, type: 2}
     - target: {fileID: 919132149155446097, guid: db77195202e368b4b90652be66681bba, type: 3}
       propertyPath: m_Name
       value: Tomb_A_01
@@ -318,6 +326,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 007d1507bbd3bae47b092f3fd9ec7a5d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0d1dd37daeaf24d47a04938b9120124d, type: 2}
     - target: {fileID: 919132149155446097, guid: 007d1507bbd3bae47b092f3fd9ec7a5d, type: 3}
       propertyPath: m_Name
       value: Stair_Tomb_A_01

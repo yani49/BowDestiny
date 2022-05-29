@@ -10,12 +10,17 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private RelicDefender m_RelicDef = null;
 
     [SerializeField] private UIManager m_uiManager = null;
+    
+
+    //Audio
+    [SerializeField] private AudioSource m_playerAS = null;
+    public AudioClip[] m_playerAC;
 
     private void Awake() 
     {        
         m_CurrenthpPlayer = m_MaxhpPlayer;
         m_uiManager.UpdateHeathBar(m_MaxhpPlayer,m_CurrenthpPlayer);
-        m_uiManager.transform.GetChild(2).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "lvl: " + m_level;
+        //m_uiManager.transform.GetChild(2).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "lvl: " + m_level;
     }
 
     public void WoundPlayer(float wound)
@@ -24,6 +29,7 @@ public class PlayerStats : MonoBehaviour
         {
             m_CurrenthpPlayer = m_CurrenthpPlayer - wound;
             m_uiManager.UpdateHeathBar(m_MaxhpPlayer, m_CurrenthpPlayer);
+            m_playerAS.PlayOneShot(m_playerAC[0]);
             if (m_CurrenthpPlayer <= 0)
             {
                 m_RelicDef.ShowPanels(2);
@@ -45,11 +51,14 @@ public class PlayerStats : MonoBehaviour
     {
         if(levelup)
         {
+            m_level += 1;
             m_MaxhpPlayer = m_MaxhpPlayer + amount;
 
             m_CurrenthpPlayer = m_MaxhpPlayer;
             m_uiManager.UpdateHeathBar(m_MaxhpPlayer, m_CurrenthpPlayer);
-            m_uiManager.transform.GetChild(2).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "lvl: " + m_level;
+            
+            //m_uiManager.transform.GetChild(2).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Wave: " + m_level;
+            //m_uiManager.transform.GetChild(2).GetChild(3).GetChild(1).GetComponent<TextMeshProUGUI>().text = "lvl: " + m_level;
         }
         else if(!levelup)
         {
@@ -66,7 +75,6 @@ public class PlayerStats : MonoBehaviour
                 m_uiManager.UpdateHeathBar(m_MaxhpPlayer, m_CurrenthpPlayer);
 
             }
-
         }
     }
 

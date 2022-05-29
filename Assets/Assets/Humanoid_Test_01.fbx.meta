@@ -2,7 +2,31 @@ fileFormatVersion: 2
 guid: 2b4f2051aad88ec4cae1e904cebf7b7d
 ModelImporter:
   serializedVersion: 21202
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: -3234276998838745900
+    second: Sword|Armature.001Action
+  - first:
+      74: 8134942641878720640
+    second: Sword|SwordAction
+  - first:
+      74: -1437223564310770781
+    second: Armature|0Tpose
+  - first:
+      74: 7709686125681325085
+    second: Armature|Armature.001Action
+  - first:
+      74: 4723146814002874508
+    second: Armature|Attack
+  - first:
+      74: -6174021494967904201
+    second: Armature|DiedAnimation
+  - first:
+      74: -7551964380084998518
+    second: Armature|Run
+  - first:
+      74: -825002406694578147
+    second: Armature|SwordAction
   externalObjects: {}
   materials:
     materialImportMode: 2

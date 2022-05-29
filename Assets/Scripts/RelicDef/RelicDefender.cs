@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class RelicDefender : MonoBehaviour
 {
@@ -7,8 +8,13 @@ public class RelicDefender : MonoBehaviour
     [SerializeField] private GameObject DeadWindow = null;
     [SerializeField] private GameObject PlayerDiedWindow = null;
     [SerializeField] private GameObject SmallWinWindow = null;
+    [SerializeField] private GameObject PauseWindows = null;
+    [SerializeField] private TextMeshProUGUI m_waveCounter = null;
+    [SerializeField] private TextMeshProUGUI m_enemyHpCounter = null;
+    [SerializeField] private TextMeshProUGUI m_enemyDMGCounter= null;
+    [SerializeField] private TextMeshProUGUI m_enemySpawnCounter = null; 
+    [SerializeField] private TextMeshProUGUI m_attackTimer = null;
 
-    //[SerializeField] private GameObject m_player = null;
     [SerializeField] private playerMovement m_playermovement;
     [SerializeField] private MouseLook m_playerMouseMove;
     [SerializeField] private PlayerStats m_playerStats;
@@ -30,8 +36,60 @@ public class RelicDefender : MonoBehaviour
 
     GameObject[] GObla;
 
+    public bool testgameplay;
+    private bool IsLToContinue= false;
+    private bool isPaused;
+
+    private float timer = 0f;
+    private int m_waveCounternumber =1;
+
+    private void Update()
+    {
+        /*
+        if(Input.GetKeyDown(KeyCode.L) && IsLToContinue)
+        {
+            Invoke("ContinueGame", 5f);
+        }*/
+        if(timer >=0)
+        {
+            timer = timer - Time.deltaTime;
+            m_attackTimer.text = "Game continues after: " + Mathf.FloorToInt(timer) + " s.";
+        }
+
+        if (IsLToContinue)
+        {
+            //timer = timer - Time.deltaTime;
+            //ContinueGame();
+            IsLToContinue = false;
+            Invoke("ContinueGame", 5f);
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseAGame();
+        }
+    }
+
+    public void PauseAGame()
+    {
+        isPaused = !isPaused;
+        if(!isPaused)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            PauseWindows.SetActive(true);
+            Time.timeScale = 0f;
+        }
+        else if(isPaused)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            PauseWindows.SetActive(false);
+            Time.timeScale = 1f;
+        }
+    }
+
     private void Awake()
     {
+
+        m_waveCounter.text = "Wave: " + m_waveCounternumber.ToString();
         m_CurrentRelicHP = m_Maxrelic_HP;
         m_uiManager.RelicHealthBar(m_Maxrelic_HP, m_CurrentRelicHP);
 
@@ -54,7 +112,15 @@ public class RelicDefender : MonoBehaviour
 
             //when you defend the relic
             case 1:
-                m_playerStats.m_level = m_playerStats.m_level + 1;
+
+                Cursor.lockState = CursorLockMode.Locked;
+                m_playermovement.enabled = true;
+                m_playerMouseMove.enabled = true;
+
+                IsLToContinue = true;
+                timer = 5f;
+                
+                //m_playerStats.m_level = m_playerStats.m_level + 1;
 
                 SmallWinWindow.SetActive(true);
 
@@ -63,12 +129,16 @@ public class RelicDefender : MonoBehaviour
                 {
                     foreach (GameObject i in GObla)
                     {
-                        Destroy(i);
+                        Destroy(i, 3.0f);
+                        //Destroy(i);
                     }
                 }
+                m_waveCounternumber = m_waveCounternumber + 1;
 
-                float dividingbyPlayerLevel = m_playerStats.m_level % 5;
+                m_waveCounter.text = "Wave: " + m_waveCounternumber.ToString();
+                float dividingbyPlayerLevel = m_waveCounternumber % 5;
                 print("<color=red>rezultat je " + dividingbyPlayerLevel + "</color>");
+
 
                 if (dividingbyPlayerLevel == 0)
                 {   
@@ -83,12 +153,10 @@ public class RelicDefender : MonoBehaviour
                 else if(dividingbyPlayerLevel != 0)
                 {
                     m_maxEnemyCounter = m_maxEnemyCounter + 1;
+                    //m_maxEnemyCounter = m_maxEnemyCounter + m_playerStats.m_level;
                 }
                 m_SlainEnemyCounter = 0;
                 m_uiManager.UpdateGoalBar(m_maxEnemyCounter, m_SlainEnemyCounter);
-
-                int modfierforHP = 2;
-                m_playerStats.LevelUpHPPlayer(modfierforHP, false, true);
                 break;
             
             //when player die
@@ -99,8 +167,10 @@ public class RelicDefender : MonoBehaviour
                 {
                     if(!i.GetComponent<Enemy_Master>().isDead)
                     {
-                        Destroy(i);
-                        m_counter =+1;
+                        //Invoke(Destroy(i), 3f);
+                        Destroy(i,3.0f);
+                        
+                        m_counter =+ Mathf.FloorToInt(i.GetComponent<Enemy_Master>().m_basicDamage);
                     }
                     AttackingRelic(m_counter);
                 }
@@ -112,7 +182,8 @@ public class RelicDefender : MonoBehaviour
 
                 else if (m_CurrentRelicHP > 0)
                 {
-                    m_playerStats.ResetPlayerHP();
+                    //m_playerStats.ResetPlayerHP();
+                    //m_playerStats.LevelUpHPPlayer(2f, true, true);
                     PlayerDiedWindow.SetActive(true);
                     m_upgradesManager.RandomReward();
                     foreach (GameObject i in GObla)
@@ -124,6 +195,12 @@ public class RelicDefender : MonoBehaviour
                 }
                 // nagradi igralca
 
+
+                if (testgameplay)
+                {
+                    int modfierforHP = 2;
+                    m_playerStats.LevelUpHPPlayer(modfierforHP, false, true);
+                }
                 break;
         }
     }
@@ -165,6 +242,8 @@ public class RelicDefender : MonoBehaviour
         m_SlainEnemyCounter = m_SlainEnemyCounter + 1;
         m_uiManager.UpdateGoalBar(m_maxEnemyCounter, m_SlainEnemyCounter);
 
+        m_enemySpawnCounter.text = "We spawned: " + m_maxEnemyCounter + ". You killed: " + m_SlainEnemyCounter + ".";
+
         if (m_SlainEnemyCounter == m_maxEnemyCounter)
         {
             ShowPanels(1);
@@ -177,6 +256,7 @@ public class RelicDefender : MonoBehaviour
         m_playerStats.GetComponent<Weapon_Control>().UpgradeWeapon();
         SpawnEnemies();
         HidePanels();
+
     }
 
     private void SpawnEnemies()
@@ -197,5 +277,9 @@ public class RelicDefender : MonoBehaviour
             }
         }
         m_maxEnemyCounter = temp_saver;
+        
+        m_enemyHpCounter.text = "One enemy have: " + FindObjectOfType<Enemy_Master>().m_EnemyHP + "hp.";
+        m_enemyDMGCounter.text = "One enemy will do: " + FindObjectOfType<Enemy_Master>().m_basicDamage+ " dmg.";
+        m_enemySpawnCounter.text = "We spawned: " + m_maxEnemyCounter + " /You killed: "+ m_SlainEnemyCounter+".";
     }    
 }

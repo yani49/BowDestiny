@@ -701,15 +701,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c16e76211c099bb4d98cc3a7cf67aa44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  w_maxdamageAmount: 5
   w_maxTypeReward: 3
   w_maxHpPlusAmount: 10
   numberofUpgrade: 3
-  hp_points: 0
   m_playerStats: {fileID: 4266819557574692809}
   m_weaponControlStats: {fileID: 4266819557574692812}
-  m_upgradeUIToogleGroup: {fileID: 2099441071}
   m_UpgradeToggleTemplate: {fileID: 1197012888}
+  m_upgradeUIToogleGroup: {fileID: 2099441071}
+  AllUpgradeToggles: []
 --- !u!1001 &582688464
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2495,11 +2494,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 606322488841750652, guid: 2f0948d3ed532244e8f7ff1af180d71d, type: 3}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 606322488841750652, guid: 2f0948d3ed532244e8f7ff1af180d71d, type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 606322488841750652, guid: 2f0948d3ed532244e8f7ff1af180d71d, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2511,35 +2510,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 606322488841750652, guid: 2f0948d3ed532244e8f7ff1af180d71d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 606322488841750652, guid: 2f0948d3ed532244e8f7ff1af180d71d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 606322488841750652, guid: 2f0948d3ed532244e8f7ff1af180d71d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 606322488841750652, guid: 2f0948d3ed532244e8f7ff1af180d71d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 606322488841750652, guid: 2f0948d3ed532244e8f7ff1af180d71d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 606322488841750652, guid: 2f0948d3ed532244e8f7ff1af180d71d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 606322488841750652, guid: 2f0948d3ed532244e8f7ff1af180d71d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 960
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 606322488841750652, guid: 2f0948d3ed532244e8f7ff1af180d71d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 540
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f0948d3ed532244e8f7ff1af180d71d, type: 3}
