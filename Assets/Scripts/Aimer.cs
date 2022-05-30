@@ -45,9 +45,11 @@ public class Aimer : MonoBehaviour
         {
             if (shootRay.collider.gameObject.CompareTag("Enemy"))
             {
+                /*
                 int callulatedDMG = m_WeaponControl.weaponDmgMultipler[m_WeaponControl.chosenDmgType] * m_WeaponControl.weaponlvl[m_WeaponControl.chosenDmgType];
                 shootRay.collider.gameObject.GetComponent<Enemy_Master>().WoundChar(m_WeaponControl.weaponDmgMultipler[m_WeaponControl.chosenDmgType], m_WeaponControl.chosenDmgType);
-
+                */
+                shootRay.collider.gameObject.GetComponent<Enemy_Master>().WoundChar(m_WeaponControl.weaponlvl[m_WeaponControl.chosenDmgType] * m_WeaponControl.weaponDmgMultipler[m_WeaponControl.chosenDmgType], m_WeaponControl.chosenDmgType);
                 shootRay.collider.gameObject.GetComponent<Enemy_Master>().m_player = this.gameObject;
                 shootRay.collider.gameObject.GetComponent<Enemy_Master>().isAngered = true;
 

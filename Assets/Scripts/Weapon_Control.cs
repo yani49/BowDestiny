@@ -17,7 +17,7 @@ public class Weapon_Control : MonoBehaviour
     [SerializeField] private ParticleSystem m_areaParticleSystem;
     [SerializeField] private ParticleSystem m_arrowParticleSystem;
 
-    bool vpisujemGeslo = false;
+    bool isWordPassword = false;
     bool isShooting = false;
 
     public bool[] isType;
@@ -53,51 +53,58 @@ public class Weapon_Control : MonoBehaviour
     }
     void Update()
     {        
-        if(Input.GetButtonDown("Weapon 01") && isType[1] && !m_weaponPanel.transform.GetChild(1).GetComponent<Toggle>().isOn)
+        if(Input.GetButtonDown("Weapon 01") && isType[1] && !m_weaponPanel.transform.GetChild(1).GetComponent<Toggle>().isOn && !isWordPassword)
         {
             chosenDmgType = 1;
             //m_AudioSource.PlayOneShot(m_audioClips[0]);
             //Time.timeScale = m_slowMotionTimeScale;
-            vpisujemGeslo = true;
+            isWordPassword = true;
             m_wordGen.gameObject.SetActive(true);
-            m_wordGen.RandomBesedaMetoda(weaponWordTypeLength[chosenDmgType], weaponlvl[chosenDmgType]);
+            m_wordGen.RandomBesedaMetoda(weaponWordTypeLength[chosenDmgType], chosenDmgType);
+            //m_wordGen.RandomBesedaMetoda(weaponWordTypeLength[chosenDmgType], weaponlvl[chosenDmgType]);
             m_weaponPanel.transform.GetChild(chosenDmgType).GetComponent<Toggle>().isOn = true;
         }
 
-        if (Input.GetButtonDown("Weapon 02") && isType[2] && !m_weaponPanel.transform.GetChild(2).GetComponent<Toggle>().isOn)
+        if (Input.GetButtonDown("Weapon 02") && isType[2] && !m_weaponPanel.transform.GetChild(2).GetComponent<Toggle>().isOn && !isWordPassword)
         {
             chosenDmgType = 2;
             //m_AudioSource.PlayOneShot(m_audioClips[0]);
             //Time.timeScale = m_slowMotionTimeScale;
-            vpisujemGeslo = true;
+            isWordPassword = true;
             m_wordGen.gameObject.SetActive(true);
-            m_wordGen.RandomBesedaMetoda(weaponWordTypeLength[chosenDmgType], weaponlvl[chosenDmgType]);
+
+            m_wordGen.RandomBesedaMetoda(weaponWordTypeLength[chosenDmgType], chosenDmgType);
+            //m_wordGen.RandomBesedaMetoda(weaponWordTypeLength[chosenDmgType], weaponlvl[chosenDmgType]);
             m_weaponPanel.transform.GetChild(chosenDmgType).GetComponent<Toggle>().isOn = true;
         }
 
-        if (Input.GetButtonDown("Weapon 03") && isType[3] && !m_weaponPanel.transform.GetChild(3).GetComponent<Toggle>().isOn)
+        if (Input.GetButtonDown("Weapon 03") && isType[3] && !m_weaponPanel.transform.GetChild(3).GetComponent<Toggle>().isOn && !isWordPassword)
         {
             chosenDmgType = 3;
             m_AudioSource.PlayOneShot(m_audioClips[0]);
             Time.timeScale = m_slowMotionTimeScale - 0.4f;
-            vpisujemGeslo = true;
+            isWordPassword = true;
             m_wordGen.gameObject.SetActive(true);
-            m_wordGen.RandomBesedaMetoda(weaponWordTypeLength[chosenDmgType], weaponlvl[chosenDmgType]);
+
+            m_wordGen.RandomBesedaMetoda(weaponWordTypeLength[chosenDmgType], chosenDmgType);
+            //m_wordGen.RandomBesedaMetoda(weaponWordTypeLength[chosenDmgType], weaponlvl[chosenDmgType]);
             m_weaponPanel.transform.GetChild(chosenDmgType).GetComponent<Toggle>().isOn = true;
         }
 
-        if (Input.GetButtonDown("Weapon 04") && isType[4] && !m_weaponPanel.transform.GetChild(4).GetComponent<Toggle>().isOn)
+        if (Input.GetButtonDown("Weapon 04") && isType[4] && !m_weaponPanel.transform.GetChild(4).GetComponent<Toggle>().isOn && !isWordPassword)
         {
             chosenDmgType = 4;
             m_AudioSource.PlayOneShot(m_audioClips[0]);
             Time.timeScale = m_slowMotionTimeScale - 0.5f;
-            vpisujemGeslo = true;
+            isWordPassword = true;
             m_wordGen.gameObject.SetActive(true);
-            m_wordGen.RandomBesedaMetoda(weaponWordTypeLength[chosenDmgType], weaponlvl[chosenDmgType]);
+
+            m_wordGen.RandomBesedaMetoda(weaponWordTypeLength[chosenDmgType], chosenDmgType);
+            //m_wordGen.RandomBesedaMetoda(weaponWordTypeLength[chosenDmgType], weaponlvl[chosenDmgType]);
             m_weaponPanel.transform.GetChild(chosenDmgType).GetComponent<Toggle>().isOn = true;
         }
 
-        if (Input.anyKey && vpisujemGeslo)
+        if (Input.anyKey && isWordPassword)
         {
             if(Input.inputString == "a" || Input.inputString == "d" || Input.inputString == "w" || Input.inputString == "s")
             {
@@ -121,7 +128,7 @@ public class Weapon_Control : MonoBehaviour
                         main.startColor = new Color(m_arrowsMAT[chosenDmgType].r, m_arrowsMAT[chosenDmgType].g, m_arrowsMAT[chosenDmgType].b);
 
                         Debug.Log("pravilno si vtipkal!");
-                        vpisujemGeslo = false;
+                        isWordPassword = false;
                         isShooting = true;
                         m_weaponPanel.transform.GetChild(chosenDmgType).GetComponent<Toggle>().isOn = false;
 

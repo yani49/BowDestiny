@@ -15,6 +15,13 @@ public class RelicDefender : MonoBehaviour
     [SerializeField] private TextMeshProUGUI m_enemySpawnCounter = null; 
     [SerializeField] private TextMeshProUGUI m_attackTimer = null;
 
+    private int totalSlainEnemies = 0;
+    [SerializeField] private TextMeshProUGUI m_scoreCategory = null;
+
+    private int m_scoreValue = 0;
+    [SerializeField] private TextMeshProUGUI m_scoreIngame = null;
+    [SerializeField] private TextMeshProUGUI m_scoreFinal = null;
+
     [SerializeField] private playerMovement m_playermovement;
     [SerializeField] private MouseLook m_playerMouseMove;
     [SerializeField] private PlayerStats m_playerStats;
@@ -45,12 +52,7 @@ public class RelicDefender : MonoBehaviour
 
     private void Update()
     {
-        /*
-        if(Input.GetKeyDown(KeyCode.L) && IsLToContinue)
-        {
-            Invoke("ContinueGame", 5f);
-        }*/
-        if(timer >=0)
+        if(timer >=1)
         {
             timer = timer - Time.deltaTime;
             m_attackTimer.text = "Game continues after: " + Mathf.FloorToInt(timer) + " s.";
@@ -58,8 +60,6 @@ public class RelicDefender : MonoBehaviour
 
         if (IsLToContinue)
         {
-            //timer = timer - Time.deltaTime;
-            //ContinueGame();
             IsLToContinue = false;
             Invoke("ContinueGame", 5f);
         }
@@ -88,9 +88,16 @@ public class RelicDefender : MonoBehaviour
 
     private void Awake()
     {
-
         m_waveCounter.text = "Wave: " + m_waveCounternumber.ToString();
+
+        m_enemySpawnCounter.text = "Spawn: " + m_SlainEnemyCounter + " / " + m_maxEnemyCounter;
         m_CurrentRelicHP = m_Maxrelic_HP;
+
+
+
+        m_scoreValue = m_scoreValue + (m_SlainEnemyCounter * m_CurrentRelicHP);
+        m_scoreIngame.text = "Score: " + m_scoreValue.ToString();
+
         m_uiManager.RelicHealthBar(m_Maxrelic_HP, m_CurrentRelicHP);
 
         SpawnEnemies();
@@ -108,6 +115,8 @@ public class RelicDefender : MonoBehaviour
             //when enemies destroy relic
             case 0:
                 DeadWindow.SetActive(true);
+                m_scoreCategory.text = "You killed total: " + totalSlainEnemies+" of enemies.\n And you survived until " + m_waveCounternumber.ToString() + " wave. GJ";
+                m_scoreFinal.text = m_scoreValue.ToString();
                 break;
 
             //when you defend the relic
@@ -136,13 +145,12 @@ public class RelicDefender : MonoBehaviour
                 m_waveCounternumber = m_waveCounternumber + 1;
 
                 m_waveCounter.text = "Wave: " + m_waveCounternumber.ToString();
+                m_enemySpawnCounter.text = "Spawn: " + m_SlainEnemyCounter + " / " + m_maxEnemyCounter;
                 float dividingbyPlayerLevel = m_waveCounternumber % 5;
                 print("<color=red>rezultat je " + dividingbyPlayerLevel + "</color>");
 
-
                 if (dividingbyPlayerLevel == 0)
-                {   
-                    
+                {
                     m_maxEnemyCounter = 1;
                     foreach(AreaSpawnerArea spawner in m_spwaners)
                     {
@@ -155,7 +163,10 @@ public class RelicDefender : MonoBehaviour
                     m_maxEnemyCounter = m_maxEnemyCounter + 1;
                     //m_maxEnemyCounter = m_maxEnemyCounter + m_playerStats.m_level;
                 }
+
+                //m_scoreValue = m_scoreValue+(m_SlainEnemyCounter * m_CurrentRelicHP);
                 m_SlainEnemyCounter = 0;
+
                 m_uiManager.UpdateGoalBar(m_maxEnemyCounter, m_SlainEnemyCounter);
                 break;
             
@@ -195,11 +206,10 @@ public class RelicDefender : MonoBehaviour
                 }
                 // nagradi igralca
 
-
                 if (testgameplay)
                 {
                     int modfierforHP = 2;
-                    m_playerStats.LevelUpHPPlayer(modfierforHP, false, true);
+                    m_playerStats.LevelUpHPPlayer(modfierforHP, true, true);
                 }
                 break;
         }
@@ -221,7 +231,7 @@ public class RelicDefender : MonoBehaviour
 
     public void ResetGame()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public void AttackingRelic(float wound)
@@ -240,9 +250,16 @@ public class RelicDefender : MonoBehaviour
     public void CheckEnemiesCount()
     {
         m_SlainEnemyCounter = m_SlainEnemyCounter + 1;
+        totalSlainEnemies += 1;
+
+        m_scoreValue = m_scoreValue + (m_SlainEnemyCounter * m_CurrentRelicHP);
+        m_scoreIngame.text = "Score: " + m_scoreValue.ToString();
         m_uiManager.UpdateGoalBar(m_maxEnemyCounter, m_SlainEnemyCounter);
 
-        m_enemySpawnCounter.text = "We spawned: " + m_maxEnemyCounter + ". You killed: " + m_SlainEnemyCounter + ".";
+        //m_enemySpawnCounter.text = "We spawned: " + m_maxEnemyCounter + ". You killed: " + m_SlainEnemyCounter + ".";
+
+        //m_enemySpawnCounter.text = m_SlainEnemyCounter + " / " + m_maxEnemyCounter;
+        m_enemySpawnCounter.text = "Spawn: " + m_SlainEnemyCounter + " / " + m_maxEnemyCounter;
 
         if (m_SlainEnemyCounter == m_maxEnemyCounter)
         {
@@ -278,8 +295,8 @@ public class RelicDefender : MonoBehaviour
         }
         m_maxEnemyCounter = temp_saver;
         
-        m_enemyHpCounter.text = "One enemy have: " + FindObjectOfType<Enemy_Master>().m_EnemyHP + "hp.";
-        m_enemyDMGCounter.text = "One enemy will do: " + FindObjectOfType<Enemy_Master>().m_basicDamage+ " dmg.";
-        m_enemySpawnCounter.text = "We spawned: " + m_maxEnemyCounter + " /You killed: "+ m_SlainEnemyCounter+".";
+        m_enemyHpCounter.text = "HP: " + FindObjectOfType<Enemy_Master>().m_EnemyHP;
+        m_enemyDMGCounter.text = "DMG: " + FindObjectOfType<Enemy_Master>().m_basicDamage;
+        m_enemySpawnCounter.text = "Spawn: " + m_SlainEnemyCounter + " / " + m_maxEnemyCounter;
     }    
 }

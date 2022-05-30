@@ -20,7 +20,7 @@ public class RandomWordGen : MonoBehaviour
     }
     public void RandomBesedaMetoda(int dolzinabesede , int weaponLevel) 
     {
-
+        print("i got" + weaponLevel + "reading table "+ m_vseCrkes[weaponLevel]);
         //Time.timeScale = 0.3f;
 
         if (m_currentCharTemplates.Count>1)

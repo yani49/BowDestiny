@@ -26,7 +26,6 @@ public class UpgradeManager : MonoBehaviour
             for (int opa3 = 1; opa3 < m_upgradeUIToogleGroup.transform.childCount; opa3++)
             {
                 Destroy(m_upgradeUIToogleGroup.gameObject.transform.GetChild(opa3).gameObject);
-                print(m_upgradeUIToogleGroup.gameObject.transform.GetChild(opa3).gameObject.name);
             }
         }
         for (int opa2 = 0; opa2 < numberofUpgrade; opa2++)
@@ -37,8 +36,6 @@ public class UpgradeManager : MonoBehaviour
 
             w_maxTypeRewardBuffer = Random.Range(0, w_maxTypeReward);
             int w_ChoosedWeapon = Random.Range(1, m_weaponControlStats.weaponlvl.Length);
-            print(w_ChoosedWeapon);
-            print("Veliksot seznama orozji je" + m_weaponControlStats.weaponlvl.Length);
 
             objecttemplate.transform.GetComponent<Upgrade_Toggle>().WeaponToggleOrganizer(w_ChoosedWeapon);
         }
@@ -46,7 +43,6 @@ public class UpgradeManager : MonoBehaviour
     public void GetReward()
     {
         AllUpgradeToggles = FindObjectsOfType<Upgrade_Toggle>();
-        Debug.LogError("Hellaaaa");
         for(int indexWeaponUpgrade = 0; indexWeaponUpgrade<AllUpgradeToggles.Length;indexWeaponUpgrade++)
         {
             if (AllUpgradeToggles[indexWeaponUpgrade].GetComponent<Toggle>().isOn)
